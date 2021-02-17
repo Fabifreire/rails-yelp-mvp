@@ -1,0 +1,38 @@
+<h1> Restaurant </h1>
+<h3> <%= @restaurant.name %></h3>
+<p> <%= @restaurant.address %></p>
+<p> <%= @restaurant.phone_number %></p>
+<p> <%= @restaurant.category %></p>
+
+<ul>
+	<% @reviews.each do |review| %>
+		<li>
+			<%= review.rating %>
+			<%= review.content %>
+		</li>
+	<% end %>
+</ul>
+
+<%= link_to 'Return', restaurants_path %>
+
+<%= simple_form_for [ @restaurant, @review ] do |f| %>
+	<%= f.error_notification %>
+
+	<% if @restaurant.errors.any? %>
+		<h4> Please fill the form properly </h4>
+		<ul>
+			<% @restaurant.errors.full_messages.each do |message| %>
+				<li> <%= message %></li>
+			<% end %>
+		</ul>
+	<% end %>
+
+	<div class= "form-inputs">
+		<%= f.input :rating %>
+		<%= f.input :content %>
+	</div>
+
+	<div class="form-actions">
+		<%= f.button :submit %>
+	</div>
+<% end %>
